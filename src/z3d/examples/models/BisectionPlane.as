@@ -31,24 +31,22 @@ package z3d.examples.models
 		
 		private function setVertexString(): void
 		{
-			_vertexString = "mov vt0.w, vc12.x \n" +
-							"mov vt0, va0 \n" +
-							
-							// for bone 1
-							"m44 vt1, va0, vc[va3.x] \n" +
-							"mul vt1.xyz, vt1.xyz, va2.xxx \n" +
-							"add vt0.xyz, vt0.xyz, vt1.xyz \n" +
-							
-							// for bone 2
-							"m44 vt1, va0, vc[va3.y] \n" +
-							"mul vt1.xyz, vt1.xyz, va2.yyy \n" +
-							"add vt0.xyz, vt0.xyz, vt1.xyz \n" +
-							
-							// Output
-							"m44 op, vt0, vc0 \n" +
-							
-							// Give fragment tex coords
-							"mov v0, va1";
+			_vertexString = "mov vt0, vc12.yyyy \n" +
+   
+			   "m44 vt1, va0, vc[va3.x] \n" +
+			   "mul vt1.xyz, vt1.xyz, va2.x \n" +
+			   "add vt0.xyz, vt0.xyz, vt1.xyz \n" +
+		   
+			   "m44 vt1, va0, vc[va3.y] \n" +
+			   "mul vt1.xyz, vt1.xyz, va2.y \n" +
+			   "add vt0.xyz, vt0.xyz, vt1.xyz \n" +
+			   
+			   "mov vt0.w, vc12.x \n"+
+			   // Output
+			   "m44 op, vt0, vc0 \n" +
+			   
+			   // Give fragment tex coords
+			   "mov v0, va1";
 		}
 		
 		private function setFragmentString(): void
@@ -67,16 +65,16 @@ package z3d.examples.models
 			[
 				// section 1
 				// x, y, z, 	u, v, 		w1, w2, 	bi1, bi2
-				-1.0, -0.5, 0, 	0, 0,		0, 1,	4,	8,
-				 0.0, -0.5, 0, 	1, 0,		0, 1,	4,	8,
-				 0.0,  0.5, 0, 	1, 1,		0, 1,	4,	8,
-				-1.0,  0.5, 0, 	0, 1,		0, 1,	4,	8,
-				
+				-1.0, -0.5, 0, 	0, 0,		0,  1,		4,  8,
+				 0.0, -0.5, 0, 	1, 0,		0,  1,		4,	8,
+				 0.0,  0.5, 0, 	1, 1,		0,  1,		4,	8,
+				-1.0,  0.5, 0, 	0, 1,		0,  1,		4,	8,
+
 				// section 2
-				 0.0, -0.5, 0, 	0, 0,		0, 0,	4,	8,
-				 1.0, -0.5, 0, 	1, 0,		0, 0,	4,	8,
-				 1.0,  0.5, 0, 	1, 1,		0, 0,	4,	8,
-				 0.0,  0.5, 0, 	0, 1, 		0, 0,	4,	8
+				 0.0, -0.5, 0, 	0, 0,		1,  0,		4,	8,
+				 1.0, -0.5, 0, 	1, 0,		1,  0,		4,	8,
+				 1.0,  0.5, 0, 	1, 1,		1,  0,		4,	8,
+				 0.0,  0.5, 0, 	0, 1, 		1,  0,		4,	8
 			];
 			
 			for each( var val: Number in geom )

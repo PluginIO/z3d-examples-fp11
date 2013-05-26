@@ -18,10 +18,17 @@ package z3d.examples.skinning
 		
 		override protected function onInitialize():void 
 		{
-			var bisectionPlane: BisectionPlane = new BisectionPlane();
-			_scene.addChild( bisectionPlane );
+			var bisectionPlane: BisectionPlane
 			
-			_renderer.addRenderable( bisectionPlane );
+			for ( var i: int = 0; i < 20; ++i )
+			{
+				bisectionPlane = new BisectionPlane();
+				bisectionPlane.localTransform.appendTranslation( (Math.random() * 50 ) - 25, 0, (Math.random() * 50 ) - 25 );
+				_scene.addChild( bisectionPlane );
+			
+				_renderer.addRenderable( bisectionPlane );
+			}
+			
 		}
 	}
 
