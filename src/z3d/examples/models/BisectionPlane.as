@@ -1,20 +1,19 @@
-package z3d.models 
+package z3d.examples.models 
 {
 	import flash.utils.ByteArray;
 	import flash.utils.Endian;
 	import z3d.geometry.TriMesh;
-	
 	/**
 	 * ...
 	 * @author Gary Paluk - http://www.plugin.io
 	 */
-	public class CrateModel extends TriMesh 
+	public class BisectionPlane extends TriMesh
 	{
 		
-		[Embed(source="../../../lib/atf/crate.atf", mimeType="application/octet-stream")]
+		[Embed(source="../atf/crate.atf", mimeType="application/octet-stream")]
 		private const ATFTexture: Class;
 		
-		public function CrateModel() 
+		public function BisectionPlane() 
 		{
 			setTexture();
 			setVertexString();
@@ -50,26 +49,18 @@ package z3d.models
 			
 			var geom: Array =
 			[  
-				//front
-				0.5, -0.5, -0.5, 	0, 0,
-				0.5,  0.5, -0.5, 	1, 0,
-			   -0.5,  0.5, -0.5, 	1, 1,
-			   -0.5, -0.5, -0.5, 	0, 1,
-				//back
-				0.5, -0.5, 0.5, 	0, 0,
-				0.5,  0.5, 0.5, 	1, 0,
-			   -0.5,  0.5, 0.5, 	1, 1,
-			   -0.5, -0.5, 0.5, 	0, 1,
-			   //right
-				0.5, -0.5, -0.5, 	0, 0,
-				0.5,  0.5, -0.5, 	1, 0,
-				0.5,  0.5,  0.5, 	1, 1,
-				0.5, -0.5,  0.5, 	0, 1,
-			   //left
-			   -0.5, -0.5,  0.5, 	0, 0,
-			   -0.5,  0.5,  0.5, 	1, 0,
-			   -0.5,  0.5, -0.5, 	1, 1,
-			   -0.5, -0.5, -0.5, 	0, 1
+				// section 1
+				// x, y, z, 	u, v, 		
+				-1.0, -0.5, 0, 	0, 0,
+				 0.0, -0.5, 0, 	1, 0,
+			     0.0,  0.5, 0, 	1, 1,
+			    -1.0,  0.5, 0, 	0, 1,
+			   
+			    // section 2
+			     0.0, -0.5, 0, 	0, 0,
+				 1.0, -0.5, 0, 	1, 0,
+			     1.0,  0.5, 0, 	1, 1,
+			     0.0,  0.5, 0, 	0, 1
 			];
 			
 			for each( var val: Number in geom )
@@ -103,26 +94,6 @@ package z3d.models
 			_indexBuffer.writeShort( 6 );
 			_indexBuffer.writeShort( 7 );
 			
-			
-			// triangle 5
-			_indexBuffer.writeShort( 8 );
-			_indexBuffer.writeShort( 9 );
-			_indexBuffer.writeShort( 10 );
-			
-			// triangle 6
-			_indexBuffer.writeShort( 8 );
-			_indexBuffer.writeShort( 10 );
-			_indexBuffer.writeShort( 11 );
-			
-			// triangle 7
-			_indexBuffer.writeShort( 12 );
-			_indexBuffer.writeShort( 13 );
-			_indexBuffer.writeShort( 14 );
-			
-			// triangle 8
-			_indexBuffer.writeShort( 12 );
-			_indexBuffer.writeShort( 14 );
-			_indexBuffer.writeShort( 15 );
 		}
 		
 	}
