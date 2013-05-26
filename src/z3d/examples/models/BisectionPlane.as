@@ -31,27 +31,30 @@ package z3d.examples.models
 		
 		private function setVertexString(): void
 		{
-			_vertexString = "mov vt2.xyz, va0.xyz \n" +
-							"mov vt0.x, va1.x \n" +
-							"mov vt0.y, va2.x \n" +
+			_vertexString = "mov vt0.w, vc12.x \n" +
+							"mov vt0, va0 \n" +
 							
 							// for bone 1
-							"m44 vt1, va0, vc[vt0.y] \n" +
-							"mul vt1.xyz, vt1.xyz, vt0.x \n" +
-							"add vt2.xyz, vt2.xyz, vt1.xyz \n" +
+							"m44 vt1, va0, vc[va3.x] \n" +
+							"mul vt1.xyz, vt1.xyz, va2.xxx \n" +
+							"add vt0.xyz, vt0.xyz, vt1.xyz \n" +
 							
 							// for bone 2
-							"m44 vt1, va0, vc[vt0.y] \n" +
-							"mul vt1.xyz, vt1.xyz, vt0.x \n" +
-							"add vt2.xyz, vt2.xyz, vt1.xyz \n" +
+							"m44 vt1, va0, vc[va3.y] \n" +
+							"mul vt1.xyz, vt1.xyz, va2.yyy \n" +
+							"add vt0.xyz, vt0.xyz, vt1.xyz \n" +
 							
-							"mov op, vt2";
+							// Output
+							"m44 op, vt0, vc0 \n" +
+							
+							// Give fragment tex coords
+							"mov v0, va1";
 		}
 		
 		private function setFragmentString(): void
 		{
 			_fragmentString = "mov ft0, v0 \n" +
-							  "tex ft1, ft0, fs1 <2d,clamp,linear,miplinear> \n" +
+							  "tex ft1, ft0, fs0 <2d,clamp,linear,miplinear> \n" +
 							  "mov oc, ft1";
 		}
 		
@@ -63,17 +66,17 @@ package z3d.examples.models
 			var geom: Array =
 			[
 				// section 1
-				// x, y, z, 	u, v, 		w1, v2, 						bi1, bi2
-				-1.0, -0.5, 0, 	0, 0,		Math.random(), Math.random(),	0,	0,
-				 0.0, -0.5, 0, 	1, 0,		Math.random(), Math.random(),	0,	0,
-			     0.0,  0.5, 0, 	1, 1,		Math.random(), Math.random(),	0,	0,
-			    -1.0,  0.5, 0, 	0, 1,		Math.random(), Math.random(),	0,	0,
-			   
-			    // section 2
-			     0.0, -0.5, 0, 	0, 0,		Math.random(), Math.random(),	0,	0,
-				 1.0, -0.5, 0, 	1, 0,		Math.random(), Math.random(),	0,	0,
-			     1.0,  0.5, 0, 	1, 1,		Math.random(), Math.random(),	0,	0,
-			     0.0,  0.5, 0, 	0, 1, 		Math.random(), Math.random(),	0,	0,
+				// x, y, z, 	u, v, 		w1, w2, 	bi1, bi2
+				-1.0, -0.5, 0, 	0, 0,		0, 1,	4,	8,
+				 0.0, -0.5, 0, 	1, 0,		0, 1,	4,	8,
+				 0.0,  0.5, 0, 	1, 1,		0, 1,	4,	8,
+				-1.0,  0.5, 0, 	0, 1,		0, 1,	4,	8,
+				
+				// section 2
+				 0.0, -0.5, 0, 	0, 0,		0, 0,	4,	8,
+				 1.0, -0.5, 0, 	1, 0,		0, 0,	4,	8,
+				 1.0,  0.5, 0, 	1, 1,		0, 0,	4,	8,
+				 0.0,  0.5, 0, 	0, 1, 		0, 0,	4,	8
 			];
 			
 			for each( var val: Number in geom )

@@ -42,7 +42,6 @@ package z3d.examples
 			
 			stage.stage3Ds[0].addEventListener(Event.CONTEXT3D_CREATE, onContext3DCreate );
 			stage.stage3Ds[0].requestContext3D();
-			
 		}
 		
 		protected function onInitialize(): void
@@ -56,6 +55,7 @@ package z3d.examples
 			
 			var stage3D: Stage3D = e.target as Stage3D;
 			Context3DContext.context = stage3D.context3D;
+			Context3DContext.context.enableErrorChecking = true;
 			
 			var camera: Camera = new Camera();
 			_renderer = new Renderer( camera );

@@ -12,7 +12,7 @@ package z3d.examples.skinning
 	public class SkinningExample extends ExampleBase
 	{
 		
-		public function SkinningExample() 
+		public function SkinningExample()
 		{
 		}
 		
@@ -22,14 +22,6 @@ package z3d.examples.skinning
 			_scene.addChild( bisectionPlane );
 			
 			_renderer.addRenderable( bisectionPlane );
-			
-			var bone1: Node = new Node();
-			bone1.worldTransform.appendTranslation( -0.5, 0, 0 );
-			var bone2: Node = new Node();
-			bone2.worldTransform.appendTranslation( 0.5, 0, 0 );
-			
-			bone1.addChild( bone2 );
-			_scene.addChild( bone1 );
 		}
 	}
 
