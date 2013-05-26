@@ -77,7 +77,6 @@ package z3d
 				_scene.addChild( model );
 				_renderer.addRenderable( model );
 			}
-			
 		}
 		
 		protected function onEnterFrame( e: Event ): void

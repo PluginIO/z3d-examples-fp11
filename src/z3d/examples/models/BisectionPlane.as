@@ -31,8 +31,21 @@ package z3d.examples.models
 		
 		private function setVertexString(): void
 		{
-			_vertexString = "m44 op, va0, vc0 \n" +
-							"mov v0, va1";
+			_vertexString = "mov vt2.xyz, va0.xyz \n" +
+							"mov vt0.x, va1.x \n" +
+							"mov vt0.y, va2.x \n" +
+							
+							// for bone 1
+							"m44 vt1, va0, vc[vt0.y] \n" +
+							"mul vt1.xyz, vt1.xyz, vt0.x \n" +
+							"add vt2.xyz, vt2.xyz, vt1.xyz \n" +
+							
+							// for bone 2
+							"m44 vt1, va0, vc[vt0.y] \n" +
+							"mul vt1.xyz, vt1.xyz, vt0.x \n" +
+							"add vt2.xyz, vt2.xyz, vt1.xyz \n" +
+							
+							"mov op, vt2";
 		}
 		
 		private function setFragmentString(): void
@@ -48,19 +61,19 @@ package z3d.examples.models
 			_vertexBuffer.endian = Endian.LITTLE_ENDIAN;
 			
 			var geom: Array =
-			[  
+			[
 				// section 1
-				// x, y, z, 	u, v, 		
-				-1.0, -0.5, 0, 	0, 0,
-				 0.0, -0.5, 0, 	1, 0,
-			     0.0,  0.5, 0, 	1, 1,
-			    -1.0,  0.5, 0, 	0, 1,
+				// x, y, z, 	u, v, 		w1, v2, 						bi1, bi2
+				-1.0, -0.5, 0, 	0, 0,		Math.random(), Math.random(),	0,	0,
+				 0.0, -0.5, 0, 	1, 0,		Math.random(), Math.random(),	0,	0,
+			     0.0,  0.5, 0, 	1, 1,		Math.random(), Math.random(),	0,	0,
+			    -1.0,  0.5, 0, 	0, 1,		Math.random(), Math.random(),	0,	0,
 			   
 			    // section 2
-			     0.0, -0.5, 0, 	0, 0,
-				 1.0, -0.5, 0, 	1, 0,
-			     1.0,  0.5, 0, 	1, 1,
-			     0.0,  0.5, 0, 	0, 1
+			     0.0, -0.5, 0, 	0, 0,		Math.random(), Math.random(),	0,	0,
+				 1.0, -0.5, 0, 	1, 0,		Math.random(), Math.random(),	0,	0,
+			     1.0,  0.5, 0, 	1, 1,		Math.random(), Math.random(),	0,	0,
+			     0.0,  0.5, 0, 	0, 1, 		Math.random(), Math.random(),	0,	0,
 			];
 			
 			for each( var val: Number in geom )
